@@ -29,13 +29,11 @@ export default function CreatePlacePage() {
       body: JSON.stringify(placeData),
     });
 
-    if (!response.ok) {
-      console.error(response.status);
-      return;
+    if (response.ok) {
+      mutate();
+      event.target.reset();
+      router.push("/");
     }
-
-    mutate();
-    event.target.reset();
   }
 
   return (
