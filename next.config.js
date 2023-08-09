@@ -28,6 +28,12 @@ const nextConfig = {
 
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "lh5.googleusercontent.com",
+
+        port: "",
+      },
     ],
   },
 };
