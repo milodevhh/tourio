@@ -8,10 +8,25 @@ export default function EditPage() {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
-  const { data: place, isLoading, error } = useSWR(`/api/places/${id}`);
+  const { data: place, isLoading, error, mutate } = useSWR(`/api/places/${id}`);
 
-  async function editPlace(place) {
-    console.log("Place edited (but not really...");
+  async function editPlace(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const placeData = Object.fromEntries(formData);
+
+    const response = await fetch(`/api/places/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(placeData),
+    });
+
+    if (response.ok) {
+      mutate();
+      router.push(`/places/${id}`);
+    }
   }
 
   if (!isReady || isLoading || error) return <h2>Loading...</h2>;
@@ -26,3 +41,6 @@ export default function EditPage() {
     </>
   );
 }
+
+/* In pages/places/[id]/edit.js, write the editPlace function to start a PATCH request.
+Write the PATCH API route in pages/api/[id]/index.js */

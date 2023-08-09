@@ -33,7 +33,7 @@ export default function Form({ onSubmit, formName, defaultData }) {
   }
 
   return (
-    <FormContainer aria-labelledby={formName} onSubmit={handleSubmit}>
+    <FormContainer aria-labelledby={formName} onSubmit={onSubmit}>
       <Label htmlFor="name">Name</Label>
       <Input
         id="name"
